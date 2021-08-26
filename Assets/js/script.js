@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function (){
     let appStates = {
         Initial : "state.initial",
         Questioning : "state.questioning",
@@ -19,52 +19,51 @@ $(document).ready(function(){
     let lastSelectedAnswer = "";
 
     const quizTime = 80;
-    //list of questions
     const questions = [
-       question1 = {
-           textContent: "Commonly used data types DO NOT include:",
-           options : ["strings", "booleans", "alerts", "numbers"],
-            answer : "alert"  
-       }, 
+        question1 = {
+            textContent: "Commonly used data types DO NOT include:",
+            options : ["strings","booleans","alert","numbers"
+            ],
+            answer : "alert"
+        },
 
-       question2 = {
-           textContent: "The condition in an if / else statement is enclosed within ____.",
-           options : ["quotes", "curly brackets", "parentheses", "square brackets"],
-           answer : "parentheses"
-       },
+        question2 = {
+            textContent: "The condition in an if / else statement is enclosed within _____.",
+            options : ["quotes", "curly brackets","parentheses","square brackets"],
+            answer : "parentheses"
+        },
 
-       question3 = {
-           textContent: "Arrays in JavaScript can be used to store ___.",
-           options : ["numbers and strings", "other arrays", "booleans", "all of the above"],
-           answer : "all of the above"
-       },
+        question3 = {
+            textContent: "Arrays in JavaScript can be used to store _____.",
+            options : ["numbers and strings","other arrays","booleans","all of the above"],
+            answer : "all of the above"
+        },
 
-       question4 = {
-           textContent: "String values must be enclosed within ___ when being assigned to variables.",
-           options :  ["commas", "curly brackets", "quotes", "parentheses"],
-           answer : "quotes"
-       },
+        question4 = {
+            textContent: "String values must be enclosed within _____ when being assigned to variables.",
+            options : ["commas", "curly brackets", "quotes","parentheses"],
+            answer : "quotes"
+        },
 
-       question5 = {
-           textContent: "A very useful tool used during development and debuggins for printing content to the debugger is:",
-           options : ["Javascript", "terminal/bash", "for loops", "console.log"],
-           answer : "console.log"
-       },
+        question5 = {
+            textContent: "A very useful tool used during development and debugging for printing content to the debugger is:",
+            options : ["JavaScript","terminal / bash", "for loops", "console log"],
+            answer : "console log"
+        }
     ];
 
-    //Start Quiz
     init();
 
     function init(){
-       $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
-       $(highscoreEl).html("View Highscore");
-       reset();
-       createInitialPage();
+        $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
+        $(highscoreEl).html("View Highscores");
+        reset();
+        createInitialPage();
 
-       $(highscoreEl).on("click", function() {
-           clearInterval(interval);
-           createLeaderboard();
-       });
+        $(highscoreEl).on("click", function(){
+            clearInterval(interval);
+            createLeaderboard();
+        });
     }
 
     function reset() {
@@ -79,13 +78,13 @@ $(document).ready(function(){
             secondsElapsed++;
             $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
 
-            if(secondsElapsed >= quizTime) {
+            if (secondsElapsed >= quizTime) {
                 clearInterval(interval);
-            if(secondsElapsed > quizTime)
-            secondsElapsed = quizTime;
-            createSubmitPage();
+                if (secondsElapsed > quizTime) 
+                    secondsElapsed = quizTime;
+                createSubmitPage();
             }
-        },1000);
+        }, 1000);
     }
 
     function getFormattedSeconds() {
@@ -94,16 +93,17 @@ $(document).ready(function(){
 
     function createInitialPage() {
         currentState = appStates.Initial;
+        
 
         $(contEl).empty();
-
+        
         let header = $("<header><h1>Coding Quiz</h1></header>");
         let paragraph = $("<p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds.</p>")
-        let button = $("<button id=\"startbtn\" type=\"button\" class=\"quizbtn\">Start Quiz</button>")
+        let button = $("<button id=\"start-quiz-btn\" type=\"button\" class=\"quizbtn\">Start Quiz</button>")
 
         $(contEl).append(header, paragraph, button);
 
-        $("#startbtn").on("click", function() {
+        $("#start-quiz-btn").on("click", function() {
             createNewQuestion();
         });
     }
@@ -116,6 +116,7 @@ $(document).ready(function(){
 
         previousState = currentState;
         currentState = appStates.Questioning;
+     
 
         $(contEl).empty();
 
@@ -124,22 +125,22 @@ $(document).ready(function(){
         let unList = $("<ul>");
 
         $(questionObj.options).each(function(index, value){
-            var btn = $(`<li><button type="button" class="ques-option start-quiz" data-ques-option="${value}">${index + 1}. ${value}</button></li>`);
+            let btn = $(`<li><button type="button" class="ques-option quizbtn" data-ques-option="${value}">${index + 1}. ${value}</button></li>`);
             $(unList).append(btn);
         });
 
         $(contEl).append(header, unList);
 
         if(previousState != appStates.Questioning)
-        startTimer();
+            startTimer();
 
         $(".ques-option").on("click", function(event){
             event.preventDefault();
             lastSelectedAnswer = $(this).attr("data-ques-option");
             let isCorrect = lastSelectedAnswer === questionObj.answer;
-          
-            if(isCorrect)
-                score +=30;
+
+            if (isCorrect)
+                score += 30;
             else if (!isCorrect) {
                 secondsElapsed += 10;
             }
@@ -154,21 +155,22 @@ $(document).ready(function(){
         });
 
         function displayMessage(message) {
-            let messageText = $(`<div class= "fader"><hr><h3>${message}</h3></div>`);
-            $('#content').append(messageText);
+            let messageText = $(`<div class="fader"><hr><h3>${message}</h3></div>`);
+            $("#content").append(messageText);
         }
     }
-//submit page function
-    function createSubmitPage () {
+
+    function createSubmitPage() {
         clearInterval(interval);
         $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
         currentState = appStates.SubmittingScore;
+    
 
-        let totalScore = score + (Math.floor(getFormattedSeconds() * .15));
-        
+        let totalScore = score + (Math.floor(getFormattedSeconds() * .10));
+
         $(contEl).empty();
 
-        let header = $("<h1>All Done!</h1>");
+        let header = $("<h1>All Done</h1>");
         let paragraph = $(`<p style="text-align: left">Your final score is ${totalScore}.</p>`);
         let submitField = $("<div class=\"submit-field\">Enter initials: <input id=\"initials\" type=\"text\"> <button id=\"initials-submit\" type=\"button\" class=\"quizbtn\">Submit</button></div>");
 
@@ -176,124 +178,115 @@ $(document).ready(function(){
 
         $("#initials-submit").on("click", function(event){
             event.preventDefault();
-            currState = appStates.Initial;
+        
+            currentState = appStates.Initial;
 
             let inputInitials = $("#initials").val();
 
             if(!inputInitials){
-                alert("Please provide your initials");
+                alert("Please enter your initials.");
                 return;
             }
 
             let highscores = localStorage.getItem("highscores");
 
             if(!highscores)
-                highscores ={};
+                highscores = {};
             else
                 highscores = JSON.parse(highscores);
 
-                highscores[inputInitials] = totalScore;
+            highscores[inputInitials] = totalScore;
 
-                localStorage.setItem("highscores", JSON.stringify(highscores));
+            localStorage.setItem("highscores", JSON.stringify(highscores));
 
-                createLeaderboard();
-                reset();
+            createLeaderboard();
+            reset();
         });
     }
-   
-   //function to create leader board
-   function createLeaderboard() {
-    if(currentState != appStates.Leaderboard)
-         previousState = currentState;
-     currentState = appStates.Leaderboard;
 
-     $(highscoreEl).empty();
-     $(timerEl).empty();
-     $(contEl).empty();
+    function createLeaderboard() {
+        if(currentState != appStates.Leaderboard)
+            previousState = currentState;
+            currentState = appStates.Leaderboard;
+       
 
-     let header =$("<h1 styel=\"margin-top:0;\">Highscores</h1>");
+        $(highscoreEl).empty();
+        $(timerEl).empty();
+        $(contEl).empty();
 
-     let highscores = localStorage.getItem("highscores");
+        let header = $("<h1 style=\"margin-top:0;\">Highscores</h1>");
 
-     $(contEl).append(header);
+        let highscores = localStorage.getItem("highscores");
 
-     if(highscores) {
-         
-         let parsedHighscores = JSON.parse(highscores);
+        $(contEl).append(header);
 
-         let sortedHighscores = sortHighscores();
+        if(highscores)
+        {
+            let parsedHighscores = JSON.parse(highscores);
 
-         let orderScores = $("<ol id=\"highscore-list\"></ol>");
+            let sortedHighscores = sortHighscores();
 
-         let counter = 1;
-         $.each(sortedHighscores, function(key, value){
+            let orderScores = $("<ol id=\"highscore-list\"></ol>");
 
-             let liEl = $(`<li class="highscore">${counter}. ${key} - ${value}</li>`);
+            let counter = 1;
+            $.each(sortedHighscores, function(key, value)
+            {
+                let liElement = $(`<li class="highscore">${counter}. ${key} - ${value}</li>`);
 
-            //  if (counter % 2)
-            //  liEl.addClass("green");
+                
+                $(orderScores).append(liElement);
+                counter++;
+            });
 
-            //  else
-            //  liEl.addclass("blue")
+            $(contEl).append(orderScores);
 
-             $(orderScores).append(liEl);
-             counter++;
-         });
+            function sortHighscores() {
+                items = Object.keys(parsedHighscores).map(function(key) {
+                    return [key, parsedHighscores[key]];
+                });
+                items.sort(function(first, second) {
+                    return second[1] - first[1];
+                });
+                sorted_obj={}
+                $.each(items, function(k, v) {
+                    use_key = v[0]
+                    use_value = v[1]
+                    sorted_obj[use_key] = use_value
+                });
+                return(sorted_obj);
+            } 
+        }
 
-         $(contEl).append(orderScores);
+        let buttons = $("<div style=\"text-align:left\"><button id=\"highscorebk\" type=\"button\" class=\"quizbtn\">Play Again</button> <button id=\"highscoreclr\" type=\"button\" class=\"quizbtn\">Clear scores</button></div>");
 
-         function sortHighscores() {
-             items = Object.keys(parsedHighscores).map(function(key) {
-                 return [key, parsedHighscores[key]];
-             });
+        $(contEl).append(buttons);
 
-             items.sort(function(first, second) {
-                 return second[1] - first[1];
-             });
+        $("#highscoreclr").on("click", function(event) {
+            event.preventDefault();
+            localStorage.removeItem("highscores");
+            $("#highscore-list").empty();
+        });
 
-             sorted_obj = {}
-                 $.each(items, function(k, v) {
-                     use_key = v[0]
-                     use_value = v[1]
-                     sorted_obj[use_key] = use_value
-                 });
-                 return(sorted_obj);
-             }
-         }
+        $("#highscorebk").on("click", function(event){
+            event.preventDefault();
 
-         let buttons = $("<div style=\"text-align:left\"><button id=\"highscorebk\" type=\"button\" class=\"quizbtn\">Go Back</button> <button id=\"highscoreclr\" type=\"button\" class=\"quizbtn\">Clear Highscores</button></div>");
+            switch(previousState)
+            {
+                case appStates.Initial:
+                    createInitialPage();
+                    break;
+                case appStates.Questioning:
+                    createNewQuestion();
+                    break; 
+                case appStates.SubmittingScore:
+                    createSubmitPage();
+                    break;
+                default:
+                    break;
+            }
 
-         $(contEl).append(buttons);
-
-         $("#highscoreclr").on("click", function(event){
-             event.preventDefault();
-             localStorage.removeItem("highscores");
-             $("#highscore-list").empty();
-         });
-
-         $("#highscorebk").on("click", function(event) {
-             event.preventDefault();
-           
-             switch(previousState) {
-
-                 case appStates.Initial:
-                     createInitialPage();
-                     break;
-                 case appStates.Questioning:
-                     createNewQuestion();
-                     break;
-                 case appStates.SubmittingScore:
-                     createSubmitPage();
-                     break;
-                 default:
-                     break;
-             }
-
-             $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
-             $(highscoreEl).html("View HighScores");
-
-         }); 
-         
-     }
- 
+            $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
+            $(highscoreEl).html("View Highscores");
+        });
+    }
 });

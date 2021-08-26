@@ -51,3 +51,40 @@ $(document).ready(function (){
              answer : "console log"
          },
      ];
+
+     //initilize variables 
+    
+    init();
+
+    function init(){
+        $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
+        $(highscoreEl).html("View Highscores");
+        reset();
+        createInitialPage();
+
+        $(highscoreEl).on("click", function(){
+            clearInterval(interval);
+            createLeaderboard();
+        });
+    }
+
+    function reset() {
+        secondsElapsed = 0;
+        currentQuestion = 0;
+    }
+
+    function startTimer() {
+        clearInterval(interval);
+
+        interval = setInterval(function() {
+            secondsElapsed++;
+            $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
+
+            if (secondsElapsed >= quizTime) {
+                clearInterval(interval);
+                if (secondsElapsed > quizTime) 
+                    secondsElapsed = quizTime;
+                createSubmitPage();
+            }
+        }, 1000);
+    }

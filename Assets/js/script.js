@@ -1,4 +1,4 @@
-$(document).ready(function (){
+$(function (){
     let appStates = {
         Initial : "state.initial",
         Questioning : "state.questioning",
@@ -16,9 +16,11 @@ $(document).ready(function (){
     let interval;
 
     let currentQuestion = 0;
-    let lastSelectedAnswer = "";
+    let lastAnswer = "";
 
     const quizTime = 80;
+
+//Questions
     const questions = [
         question1 = {
             textContent: "Commonly used data types DO NOT include:",
@@ -58,7 +60,7 @@ $(document).ready(function (){
         $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
         $(highscoreEl).html("View Highscores");
         reset();
-        createInitialPage();
+        createMainPage();
 
         $(highscoreEl).on("click", function(){
             clearInterval(interval);
@@ -70,7 +72,7 @@ $(document).ready(function (){
         secondsElapsed = 0;
         currentQuestion = 0;
     }
-
+//quiz start timer
     function startTimer() {
         clearInterval(interval);
 
@@ -90,8 +92,8 @@ $(document).ready(function (){
     function getFormattedSeconds() {
         return (quizTime - secondsElapsed);
     }
-
-    function createInitialPage() {
+//start page
+    function createMainPage() {
         currentState = appStates.Initial;
         
 
@@ -107,7 +109,7 @@ $(document).ready(function (){
             createNewQuestion();
         });
     }
-
+//move thru the quiz
     function createNewQuestion() {
         if(currentQuestion >= questions.length) {
             createSubmitPage();
@@ -136,8 +138,8 @@ $(document).ready(function (){
 
         $(".ques-option").on("click", function(event){
             event.preventDefault();
-            lastSelectedAnswer = $(this).attr("data-ques-option");
-            let isCorrect = lastSelectedAnswer === questionObj.answer;
+            lastAnswer = $(this).attr("data-ques-option");
+            let isCorrect = lastAnswer === questionObj.answer;
 
             if (isCorrect)
                 score += 30;
@@ -159,7 +161,7 @@ $(document).ready(function (){
             $("#content").append(messageText);
         }
     }
-
+//Credentials and Highscores
     function createSubmitPage() {
         clearInterval(interval);
         $(timerEl).html(`Timer: ${getFormattedSeconds()}`);
@@ -197,6 +199,7 @@ $(document).ready(function (){
 
             highscores[inputInitials] = totalScore;
 
+//Add to local storage
             localStorage.setItem("highscores", JSON.stringify(highscores));
 
             createLeaderboard();
@@ -239,7 +242,8 @@ $(document).ready(function (){
             });
 
             $(contEl).append(orderScores);
-
+            
+//High score content 
             function sortHighscores() {
                 items = Object.keys(parsedHighscores).map(function(key) {
                     return [key, parsedHighscores[key]];
@@ -256,8 +260,8 @@ $(document).ready(function (){
                 return(sorted_obj);
             } 
         }
-
-        let buttons = $("<div style=\"text-align:left\"><button id=\"highscorebk\" type=\"button\" class=\"quizbtn\">Play Again</button> <button id=\"highscoreclr\" type=\"button\" class=\"quizbtn\">Clear scores</button></div>");
+//High scores buttons
+        let buttons = $("<div style=\"text-align:center\"><button id=\"highscorebk\" type=\"button\" class=\"quizbtn\">Play Again</button> <button id=\"highscoreclr\" type=\"button\" class=\"quizbtn\">Clear scores</button></div>");
 
         $(contEl).append(buttons);
 
@@ -273,7 +277,7 @@ $(document).ready(function (){
             switch(previousState)
             {
                 case appStates.Initial:
-                    createInitialPage();
+                    createMainPage();
                     break;
                 case appStates.Questioning:
                     createNewQuestion();

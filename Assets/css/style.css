@@ -1,0 +1,116 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 20px;
+    
+   
+  
+}
+body {
+    background-color: #c4dacf;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 15%;
+    font-weight: bold;
+    color:#63585e;
+    background-color: #b9c0da ;
+}
+
+ header h1 {
+    text-align: center;
+    color: #63585e ;
+} 
+
+p {
+    color: #63585e;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+li {
+    text-align: center;
+}
+
+#highscores {
+    float: left;
+    position: absolute;
+    top: 0;
+    left: 1em;
+    clear: both;
+    color:#63585e ;
+}
+
+#timer {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 1em;
+    clear: both;
+    color:#63585e 
+
+}
+
+#highscore-list {
+    list-style: none;
+    padding-left: 0px;
+}
+.highscore {
+    text-align: left;
+    font-weight: bold;
+    padding: 0.25em 1em;
+    color:#63585e;
+    border-radius: 5px;
+}
+
+.quizbtn {
+    background-color:#998da0 ;
+    border-color: #63585e;
+    color: black;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+
+
+.nav-cont {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 25px;
+    height: 30px;
+    font-weight: bolder;
+}
+.submit-field {
+    text-align: left;
+}
+
+
+
+.fader {
+    animation: cssAnimation 1s forwards;
+}
+
+.fader h3 {
+    font-size: 25px;
+    text-align: left;
+    color :#63585e ;
+    opacity: 0.5;
+}
+
+@keyframes cssAnimation {
+    0%   {opacity: 1;}
+    99% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+
+
+
+
+
+

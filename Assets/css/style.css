@@ -13,16 +13,12 @@ body {
 
 h1 {
     text-align: center;
-    margin-top: 15%;
+    margin-top: 30%;
     font-weight: bold;
     color:#63585e;
     background-color: #b9c0da ;
 }
 
- header h1 {
-    text-align: center;
-    color: #63585e ;
-} 
 
 p {
     color: #63585e;
@@ -34,7 +30,7 @@ ul {
 }
 
 li {
-    text-align: center;
+    text-align: left;
 }
 
 #highscores {

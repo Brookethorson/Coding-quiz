@@ -6,6 +6,7 @@ $(function (){
         Leaderboard : "state.leaderboard"
     };
 
+//let list 
     let contEl = $("#content");
     let timerEl = $("#timer");
     let highscoreEl = $("#highscores");
@@ -24,8 +25,7 @@ $(function (){
     const questions = [
         question1 = {
             textContent: "Commonly used data types DO NOT include:",
-            options : ["strings","booleans","alert","numbers"
-            ],
+            options : ["strings","booleans","alert","numbers"],
             answer : "alert"
         },
 
@@ -135,7 +135,8 @@ $(function (){
 
         if(previousState != appStates.Questioning)
             startTimer();
-
+//adds to score if correct subtracts if wrong 
+//display correct or wrong 
         $(".ques-option").on("click", function(event){
             event.preventDefault();
             lastAnswer = $(this).attr("data-ques-option");
@@ -206,7 +207,7 @@ $(function (){
             reset();
         });
     }
-
+//create and sort leaderboard
     function createLeaderboard() {
         if(currentState != appStates.Leaderboard)
             previousState = currentState;
@@ -260,7 +261,7 @@ $(function (){
                 return(sorted_obj);
             } 
         }
-//High scores buttons
+//high scores and play again buttons
         let buttons = $("<div style=\"text-align:center\"><button id=\"highscorebk\" type=\"button\" class=\"quizbtn\">Play Again</button> <button id=\"highscoreclr\" type=\"button\" class=\"quizbtn\">Clear scores</button></div>");
 
         $(contEl).append(buttons);
@@ -274,6 +275,7 @@ $(function (){
         $("#highscorebk").on("click", function(event){
             event.preventDefault();
 
+//switch to previous state if case is not matched
             switch(previousState)
             {
                 case appStates.Initial:

@@ -16,7 +16,7 @@ This is not an active application but instead a test.
 
 ## Screenshot
  
-![alt text]()
+![alt text](https://github.com/Brookethorson/Coding-quiz/blob/main/Assets/Screen%20Grab.JPG)
 
 
 

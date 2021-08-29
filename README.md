@@ -22,4 +22,4 @@ This is not an active application but instead a test.
 
 ## Link 
 
-View the deployed Site at 
+View the deployed Site at https://brookethorson.github.io/Coding-quiz/
